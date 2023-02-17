@@ -1,24 +1,20 @@
 import { readdirSync } from "fs";
-import { ApplicationCommandDataResolvable, Client, Collection } from "discord.js";
+import { ApplicationCommandDataResolvable, Client, Collection, ApplicationCommandData, ApplicationCommand } from "discord.js";
 import { join } from "path";
-import { BotEvent, SlashCommand } from "./types";
+import { BotEvent, Command } from "./types";
 
-var CommandsArray: SlashCommand[] = [];
-var GuildCommandArray: ApplicationCommandDataResolvable[] = []
+var Commands: Command[] = []
 
 function loadevents(client: Client) {
     let eventsdir = join(__dirname, "./events")
-    console.log(eventsdir)
     const events = readdirSync(eventsdir).filter(file => file.endsWith('.js'));
 
-    console.log(`\nLoading events...\n`);
+    console.log(`\n--> [Loader] Loading events...\n`);
 
     for (const file of events) {
       const event: BotEvent = require(`${eventsdir}/${file}`).default;
 
-      event.once 
-      ? client.once(event.name, (...args) => event.execute(...args)) 
-      : client.on(event.name, (...args) => event.execute(...args));
+      client.on(event.name, (...args) => event.execute(client, ...args));
 
       console.log(`-> [Loaded Event] ${event.name}`);
     };
@@ -28,20 +24,17 @@ function loadslashcmds(client: Client) {
     const slashCommandsDir = join(__dirname, "./slashCommands");
     const commands = readdirSync(slashCommandsDir).filter(file => file.endsWith('.js'));
 
-    console.log(`\nLoading slash commands...\n`);
+    console.log(`\n--> [Loader (/)] Loading slash commands...\n`);
 
     client.commands = new Collection();
 
     for (const file of commands) {
-        const command: SlashCommand = require(`${slashCommandsDir}/${file}`).command;
-        const cmd: ApplicationCommandDataResolvable = require(`${slashCommandsDir}/${file}`).command;
+        const command: Command = require(`${slashCommandsDir}/${file}`).command;
 
-        CommandsArray.push(command);
-        GuildCommandArray.push(cmd)
+        Commands.push(command)
 
         console.log(`-> [Loaded Command] ${command.name.toLowerCase()}`);
-        client.commands.set(command.name.toLowerCase(), command);
-        console.log(client.application)
+        client.application.commands.set(Commands);
     };
 }
 
@@ -60,10 +53,12 @@ function loadprefixcmds(client: Client) {
 }  
 
 function load(guildid: string, client: Client) {
-    client.guilds.cache.get(guildid).commands.set(GuildCommandArray)
+    client.guilds.cache.get(guildid).commands.set(Commands)
 }
 
 module.exports.loadevents = (client: Client) => loadevents(client)
 module.exports.loadprefixcmds = (client: Client) => loadprefixcmds(client)
 module.exports.loadslashcommands = (client: Client) => loadslashcmds(client)
 module.exports.load = (guildid: string, client: Client) => load(guildid, client)
+
+module.exports.commands = Commands

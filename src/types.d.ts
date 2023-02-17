@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits, PermissionsBitField } from "discord.js"
+import { PermissionFlagsBits, PermissionsBitField, BaseCommandInteraction, ChatInputApplicationCommandData } from "discord.js"
 
 declare global {
     namespace NodeJS {
@@ -11,26 +11,15 @@ declare global {
 
 export interface BotEvent {
     name: string,
-    once?: boolean | false,
     async execute: (...args?) => void
-}
-
-export interface SlashCommandData {
-    name: string,
-    description: string,
-    dm: boolean | false,
-    permissions: Array<> | null,
-    options: Object[] | null
-}
-
-export interface SlashCommand {
-    name: string,
-    data: SlashCommandData,
-    async execute: (interaction : CommandInteraction) => Promise<void>,
 }
 
 declare module "discord.js" {
     export interface Client {
         commands: Collection<string, SlashCommand>
     }
+}
+
+export interface Command extends ChatInputApplicationCommandData {
+    run: (client: Client, interaction: BaseCommandInteraction) => void;
 }

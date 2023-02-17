@@ -15,7 +15,5 @@ const client: Client = new Client({
 });
 
 loader.loadevents(client)
-//loader.loadprefixcmds()
-loader.loadslashcommands(client)
 
 client.login(process.env.TOKEN)
