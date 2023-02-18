@@ -4,7 +4,8 @@ import ms from "ms";
 
 export const command: pxCommand = {
     name: 'ping',
-    description: 'Big command',
+    description: 'Renvoi le ping du bot !',
+    categorie: 'Informations',
     run: async (client, message, args) => {
 
         const embed: any = new EmbedBuilder()

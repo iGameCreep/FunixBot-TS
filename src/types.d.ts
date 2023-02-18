@@ -21,11 +21,13 @@ declare module "discord.js" {
 }
 
 export interface Command extends ChatInputApplicationCommandData {
+    categorie: string,
     run: (client: Client, interaction: BaseCommandInteraction) => void;
 }
 
 export interface pxCommand {
     name: string,
     description: string,
+    categorie: string,
     run: (client: Client, message: Message, args: string[]) => void;
 }
