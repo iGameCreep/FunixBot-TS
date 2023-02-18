@@ -4,7 +4,7 @@ import ms from "ms";
 
 export const command: Command = {
     name: 'ping',
-    description: 'Big command',
+    description: 'Renvoi le ping du bot !',
     run: async (client, interaction) => {
         const embed = new EmbedBuilder()
         .setColor('Blue')
