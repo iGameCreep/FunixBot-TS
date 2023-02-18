@@ -1,7 +1,8 @@
-import { Events, Client, Message, ChannelType } from 'discord.js'
+import { Events, Client, Message, ChannelType, EmbedBuilder } from 'discord.js'
 import { BotEvent, pxCommand } from "../types";
 import { readdirSync, existsSync } from 'fs';
 import { join } from "path";
+const Commands = require('../loader').pxCommands
 
 const event: BotEvent = {
     name: Events.MessageCreate,
@@ -14,15 +15,14 @@ const event: BotEvent = {
 
         const args: string[] = message.content.slice(prefix.length).trim().split(/ +/g);
         const commandname: string = args.shift().toLowerCase();
-        const cmdfile: string = `./src/commands/${commandname}.js`
+        const cmdfile: string = join(__dirname, `../commands/${commandname}.js`)
         const path: string = join(__dirname, `../commands/${commandname}` )
 
-        if (!existsSync(cmdfile)) return message.reply({ content: `❌ | La commande \`${commandname}\` n'existe pas !` })
+        const command: pxCommand = Commands.find((c: pxCommand) => c.name === commandname);
 
-        const command: pxCommand = require(path)
+        if (!command) return message.reply({ content: `❌ | La commande \`${commandname}\` n'existe pas !` });
 
-        command.run(client, message, args)
-
+        command.run(client, message, args);
     }
 }
 

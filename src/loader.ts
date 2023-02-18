@@ -1,9 +1,10 @@
-import { readdirSync } from "fs";
+import { readdirSync, readdir } from "fs";
 import { ApplicationCommandDataResolvable, Client, Collection, ApplicationCommandData, ApplicationCommand } from "discord.js";
 import { join } from "path";
-import { BotEvent, Command } from "./types";
+import { BotEvent, Command, pxCommand } from "./types";
 
 var Commands: Command[] = []
+var pxCommands: pxCommand[] = []
 
 function loadevents(client: Client) {
     let eventsdir = join(__dirname, "./events")
@@ -26,8 +27,6 @@ function loadslashcmds(client: Client) {
 
     console.log(`\n--> [Loader (/)] Loading slash commands...\n`);
 
-    client.commands = new Collection();
-
     for (const file of commands) {
         const command: Command = require(`${slashCommandsDir}/${file}`).command;
 
@@ -39,17 +38,22 @@ function loadslashcmds(client: Client) {
 }
 
 function loadprefixcmds(client: Client) {
-    const prefixcommands = readdirSync('./commands/prefix').filter(file => file.endsWith('.js'));
+    const commandsdir = join(__dirname, `./commands`);
 
-    console.log(`\nLoading prefix commands...\n`);
+    console.log(`\n-->[Loader (!)] Loading prefix commands...\n`);
 
-    for (const file of prefixcommands) {
-        const command = require(`./commands/prefix/${file}`);
-        if ((command.name && command.description && command.category) || (command.name && command.description && !command.showHelp)) {
+    client.commands = new Collection();
+
+    readdir(commandsdir, function(err, files) {
+        for (const file of files) {
+            const command: pxCommand = require(`${commandsdir}\\${file}`).command;
+    
+            pxCommands.push(command)
+          
             console.log(`-> [Loaded Command] ${command.name.toLowerCase()}`);
-            delete require.cache[require.resolve(`./commands/prefix/${file}`)];
-        } else console.log(`[Failed Command] ${command.name.toLowerCase()}`)
-    };
+            client.commands.set(pxCommands)
+        }; 
+    });
 }  
 
 function load(guildid: string, client: Client) {
@@ -57,8 +61,9 @@ function load(guildid: string, client: Client) {
 }
 
 module.exports.loadevents = (client: Client) => loadevents(client)
-module.exports.loadprefixcmds = (client: Client) => loadprefixcmds(client)
+module.exports.loadprefixcommands = (client: Client) => loadprefixcmds(client)
 module.exports.loadslashcommands = (client: Client) => loadslashcmds(client)
 module.exports.load = (guildid: string, client: Client) => load(guildid, client)
 
 module.exports.commands = Commands
+module.exports.pxCommands = pxCommands
