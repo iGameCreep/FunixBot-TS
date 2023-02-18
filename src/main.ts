@@ -1,6 +1,7 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 import * as dotenv from 'dotenv'
 const loader = require('./loader')
+const getstream = require('./getstream')
 
 dotenv.config()
 
@@ -15,5 +16,7 @@ const client: Client = new Client({
 });
 
 loader.loadevents(client)
+
+getstream(client)
 
 client.login(process.env.TOKEN)
