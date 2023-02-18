@@ -5,7 +5,6 @@ const { GUILD_ID, CHANNEL_ID, ROLE_ID } = process.env
 
 module.exports = (client: Client) => {
     setInterval(() => {
-        console.log("INTERVAL")
         const response = fetch('https://api.funixgaming.fr/twitch/streams/funix', { method: 'GET' })
 
         response.then((res) => {
