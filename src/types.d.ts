@@ -7,7 +7,11 @@ declare global {
             TOKEN: string
             GUILD_ID: string
             CHANNEL_ID: string
-            ROLE_ID: string
+            ROLES_CHANNEL_ID: string
+            TWITCH_ROLE_ID: string
+            YTB_ROLE_ID: string
+            TIKTOK_ROLE_ID: string
+            ADMINID: string[]
         }
     }
 }

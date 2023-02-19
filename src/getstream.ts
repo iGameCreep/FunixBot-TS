@@ -1,7 +1,7 @@
 import { Client, EmbedBuilder } from 'discord.js'
 import fetch from 'node-fetch'
 
-const { GUILD_ID, CHANNEL_ID, ROLE_ID } = process.env
+const { GUILD_ID, CHANNEL_ID, TWITCH_ROLE_ID } = process.env
 
 module.exports = (client: Client) => {
     setInterval(() => {
@@ -38,7 +38,7 @@ module.exports = (client: Client) => {
                 ])
                 .setFooter({ text: 'Notification de stream', iconURL: client.user.avatarURL() })
 
-                channel.send({ content: `${name} est en live sur Twitch ! <@&${ROLE_ID}>`, embeds: [ embed ] })
+                channel.send({ content: `${name} est en live sur Twitch ! <@&${TWITCH_ROLE_ID}>`, embeds: [ embed ] })
 
             })
         })
