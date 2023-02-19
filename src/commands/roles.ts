@@ -38,7 +38,7 @@ export const command: pxCommand = {
         .setStyle(ButtonStyle.Primary)
 
         const youtube = new ButtonBuilder()
-        .setCustomId('notif-ytb')
+        .setCustomId('notif-youtube')
         .setEmoji("<:youtube:1076929043154346047>")
         .setStyle(ButtonStyle.Primary)
 

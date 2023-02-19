@@ -1,4 +1,4 @@
-import { PermissionFlagsBits, PermissionsBitField, BaseCommandInteraction, ChatInputApplicationCommandData, Message } from "discord.js"
+import { PermissionFlagsBits, PermissionsBitField, BaseCommandInteraction, ChatInputApplicationCommandData, Message, Client, GuildMember } from "discord.js"
 
 declare global {
     namespace NodeJS {
@@ -39,4 +39,9 @@ export interface pxCommand {
     categorie: string,
     showHelp: boolean,
     run: (client: Client, message: Message, args: string[]) => void;
+}
+
+export interface button {
+    id: string,
+    async execute: (client: Client, interaction: BaseCommandInteraction) => void;
 }
