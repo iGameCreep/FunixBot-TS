@@ -5,6 +5,7 @@ export const command: Command = {
     name: 'ip',
     description: 'Renvoi l\'IP et les informations du serveur Minecraft Pacifista !',
     categorie: 'Pacifista',
+    showHelp: true,
     run: async (client, interaction) => {
 
         const btn = new ButtonBuilder()

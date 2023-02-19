@@ -6,6 +6,7 @@ export const command: pxCommand = {
     name: 'ping',
     description: 'Renvoi le ping du bot !',
     categorie: 'Informations',
+    showHelp: true,
     run: async (client, message, args) => {
 
         const embed: any = new EmbedBuilder()

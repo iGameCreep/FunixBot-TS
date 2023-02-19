@@ -6,6 +6,7 @@ export const command: pxCommand = {
     name: 'me',
     description: 'Renvoi les infos principales de ton compte !',
     categorie: 'Informations',
+    showHelp: true,
     run: async (client, message, args) => {
 
         const author: any = {

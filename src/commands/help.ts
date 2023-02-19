@@ -7,6 +7,7 @@ export const command: pxCommand = {
     name: 'help',
     description: 'Liste toute les commandes du bot !',
     categorie: 'Informations',
+    showHelp: true,
     run: async (client, message, args) => {
         const categories = [];
 

@@ -5,6 +5,7 @@ export const command: Command = {
     name: 'me',
     description: 'Renvoi les infos principales de ton compte !',
     categorie: 'Informations',
+    showHelp: true,
     run: async (client, interaction) => {
 
         const author: any = {

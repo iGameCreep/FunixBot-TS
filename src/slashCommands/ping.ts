@@ -6,6 +6,7 @@ export const command: Command = {
     name: 'ping',
     description: 'Renvoi le ping du bot !',
     categorie: 'Informations',
+    showHelp: true,
     run: async (client, interaction) => {
         const embed = new EmbedBuilder()
         .setColor('Blue')

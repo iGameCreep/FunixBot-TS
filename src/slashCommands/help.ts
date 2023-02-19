@@ -7,6 +7,7 @@ export const command: Command = {
     name: 'help',
     description: 'Liste toute les commandes du bot !',
     categorie: 'Informations',
+    showHelp: true,
     run: async (client, interaction) => {
         const categories = [];
 
