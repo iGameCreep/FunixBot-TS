@@ -28,7 +28,7 @@ export const command: pxCommand = {
             },
             {
                 name: "**Date de création**",
-                value: `${create.getUTCDay()} ${create.toLocaleString('default', { month: 'long' })} ${create.getUTCFullYear()}`,
+                value: `${create.getDate()} ${create.toLocaleString('default', { month: 'long' })} ${create.getFullYear()}`,
             }
         ])
 
