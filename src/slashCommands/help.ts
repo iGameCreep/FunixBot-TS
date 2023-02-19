@@ -12,7 +12,7 @@ export const command: Command = {
         const categories = [];
 
         commands.forEach((command: Command) => {
-            if(!categories.includes(command.categorie)) {
+            if(!categories.includes(command.categorie) && command.showHelp) {
                 categories.push(command.categorie);
             }
         });
