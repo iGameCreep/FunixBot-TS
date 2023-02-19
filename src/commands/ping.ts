@@ -9,15 +9,19 @@ export const command: pxCommand = {
     showHelp: true,
     run: async (client, message, args) => {
 
+        const imgopts: any = {
+            dynamic: true
+        }
+
         const embed: any = new EmbedBuilder()
         .setColor('Blue')
         .setTitle("Pong 🏓 !")
-        .setThumbnail(client.user.displayAvatarURL({dynamic: true}))
-        .setDescription(`La latence de l'API est de ${Math.round(client.ws.ping)}ms 🛰️, Dernier ping calculé il y a ${ms(Date.now() - client.ws.shards.first().lastPingTimestamp, { long: true }).replace('seconds', 'secondes')}.`)
+        .setThumbnail(client.user.displayAvatarURL(imgopts))
+        .setDescription(`La latence de l'API est de ${Math.round(client.ws.ping)}ms 🛰️.`)
         .setTimestamp()
         .setFooter({
             text: message.member.user.username ? message.member.user.username : `${message.member.user.username}#${message.member.user.discriminator}`,
-            iconURL: message.member.user.displayAvatarURL()
+            iconURL: message.member.user.displayAvatarURL(imgopts)
         })
 
         await message.reply({ embeds: [ embed ]})

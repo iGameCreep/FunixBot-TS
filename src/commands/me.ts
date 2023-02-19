@@ -9,9 +9,13 @@ export const command: pxCommand = {
     showHelp: true,
     run: async (client, message, args) => {
 
+        const imgopts: any = {
+            dynamic: true
+        }
+
         const author: any = {
             name: message.member.user.tag,
-            iconURL: message.member.displayAvatarURL()
+            iconURL: message.member.displayAvatarURL(imgopts)
         }
 
         const create = new Date(message.member.user.createdTimestamp)
@@ -19,7 +23,7 @@ export const command: pxCommand = {
         const embed: any = new EmbedBuilder()
         .setColor('Blue')
         .setAuthor(author)
-        .setThumbnail(message.member.displayAvatarURL())
+        .setThumbnail(message.member.displayAvatarURL(imgopts))
         .setDescription("Voici donc les infos principales de ton compte.")
         .addFields([
             {

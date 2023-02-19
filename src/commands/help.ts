@@ -17,12 +17,16 @@ export const command: pxCommand = {
             }
         });
 
+        const imgopts: any = {
+            dynamic: true
+        }
+
         const embed: any = new EmbedBuilder()
         .setColor('Blue')
-        .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL({ size: 1024, dynamic: true }) })
+        .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(imgopts) })
         .setDescription('Voici toute les commandes du bot !')
         .setTimestamp()
-        .setFooter({ text: message.member.user.username, iconURL: message.member.user.displayAvatarURL()});
+        .setFooter({ text: message.member.user.username, iconURL: message.member.user.displayAvatarURL(imgopts)});
 
         categories.sort().forEach((cat, i) => {
             const tCommands = commands.filter((cmd: Command) => cmd.categorie === cat);

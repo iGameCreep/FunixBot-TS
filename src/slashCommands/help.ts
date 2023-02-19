@@ -11,6 +11,10 @@ export const command: Command = {
     run: async (client, interaction) => {
         const categories = [];
 
+        const imgopts: any = {
+            dynamic: true
+        }
+
         commands.forEach((command: Command) => {
             if(!categories.includes(command.categorie) && command.showHelp) {
                 categories.push(command.categorie);
@@ -19,10 +23,10 @@ export const command: Command = {
 
         const embed = new EmbedBuilder()
         .setColor('Blue')
-        .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL({ size: 1024, dynamic: true }) })
+        .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(imgopts) })
         .setDescription('Voici toute les commandes du bot !')
         .setTimestamp()
-        .setFooter({ text: interaction.member.user.username, iconURL: interaction.member.user.displayAvatarURL()});
+        .setFooter({ text: interaction.member.user.username, iconURL: interaction.member.user.displayAvatarURL(imgopts)});
 
         categories.sort().forEach((cat, i) => {
             const tCommands = commands.filter((cmd: Command) => cmd.categorie === cat);

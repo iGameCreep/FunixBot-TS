@@ -8,11 +8,16 @@ export const command: Command = {
     categorie: 'Informations',
     showHelp: true,
     run: async (client, interaction) => {
+
+        const imgopts: any = {
+            dynamic: true
+        }
+
         const embed = new EmbedBuilder()
         .setColor('Blue')
         .setTitle("Pong 🏓 !")
-        .setThumbnail(client.user.displayAvatarURL({dynamic: true}))
-        .setDescription(`La latence de l'API est de ${Math.round(client.ws.ping)}ms 🛰️, Dernier ping calculé il y a ${ms(Date.now() - client.ws.shards.first().lastPingTimestamp, { long: true })}.`)
+        .setThumbnail(client.user.displayAvatarURL(imgopts))
+        .setDescription(`La latence de l'API est de ${Math.round(client.ws.ping)}ms 🛰️.`)
         .setTimestamp()
         .setFooter({
             text: interaction.user.username ? interaction.user.username : `${interaction.user.username}#${interaction.user.discriminator}`,
