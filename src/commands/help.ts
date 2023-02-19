@@ -18,7 +18,7 @@ export const command: pxCommand = {
         });
 
         const embed: any = new EmbedBuilder()
-        .setColor('#0000ff')
+        .setColor('Blue')
         .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL({ size: 1024, dynamic: true }) })
         .setDescription('Voici toute les commandes du bot !')
         .setTimestamp()
